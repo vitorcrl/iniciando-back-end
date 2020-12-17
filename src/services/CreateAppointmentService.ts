@@ -1,4 +1,5 @@
 import Appointment from '../models/appointment'
+import { getCustomRepository } from 'typeorm'
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 import { startOfHour } from 'date-fns';
 /* Resolucao de problemas:
@@ -14,24 +15,23 @@ interface RequestDTO {
 // Dependency inversion (SOLID)
 //
 class CreateAppointmetService {
-private appointmentsRepository: AppointmentsRepository;
-constructor(appointmentsRepository:AppointmentsRepository) {
-this.appointmentsRepository = appointmentsRepository;
-}
 
+ public async execute({date, provider}: RequestDTO): Promise<Appointment> {
+   const appointmentsRepository =  getCustomRepository(AppointmentsRepository);
+   //acima criado para tirar o find tornando o appointmentsRepository um repositorio
 
- public execute({date, provider}: RequestDTO): Appointment {// execute esta criando a a classe appointment
   const appointmentDate = startOfHour(date);
 
-  const findAppointmentInSameDate =
-  this.appointmentsRepository.findByDate(appointmentDate,);
+  const findAppointmentInSameDate = await
+ appointmentsRepository.findByDate(appointmentDate,);
 
     if(findAppointmentInSameDate){
       throw Error('This appointment is alread booked')
     }
-  const appointment =  this.appointmentsRepository
-  .create({provider, date:appointmentDate, });
-
+  const appointment =  appointmentsRepository.create({
+    provider, date:appointmentDate, 
+  });
+await appointmentsRepository.save(appointment);
   return appointment;
 };
 }
