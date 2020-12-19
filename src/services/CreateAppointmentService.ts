@@ -9,14 +9,14 @@ import { startOfHour } from 'date-fns';
 */
 interface RequestDTO {
   date:Date;
-  provider:string;
+  provider_id:string;
 }
 
 // Dependency inversion (SOLID)
 //
 class CreateAppointmetService {
 
- public async execute({date, provider}: RequestDTO): Promise<Appointment> {
+ public async execute({date, provider_id}: RequestDTO): Promise<Appointment> {
    const appointmentsRepository =  getCustomRepository(AppointmentsRepository);
    //acima criado para tirar o find tornando o appointmentsRepository um repositorio
 
@@ -29,7 +29,7 @@ class CreateAppointmetService {
       throw Error('This appointment is alread booked')
     }
   const appointment =  appointmentsRepository.create({
-    provider, date:appointmentDate, 
+    provider_id, date:appointmentDate, 
   });
 await appointmentsRepository.save(appointment);
   return appointment;
