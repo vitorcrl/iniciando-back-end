@@ -5,9 +5,9 @@ import { Entity,
          UpdateDateColumn } 
          from 'typeorm';
 
+// KISS: Keep Is Simple e Stupid
 
-
-@Entity('appointments')
+@Entity('users')
 class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
