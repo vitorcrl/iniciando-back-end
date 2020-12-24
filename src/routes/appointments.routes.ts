@@ -7,9 +7,14 @@ import { parseISO } from 'date-fns';
 import AppointmentsRepository from '../repositories/AppointmentsRepository'
 import CreateAppointmentService from '../services/CreateAppointmentService'
 // Start of hour pega a data e colocar no comeco da hora
+import ensureAuthenticated from '../middlewares/ensureAuthenticated'
+
+
 const appointmentsRouter = Router();
 
 
+
+appointmentsRouter.use(ensureAuthenticated);
 //http://localhost/3333/appointments
 // ao entrar nessa rota ela ja ira entender que se trata
 // de uma adicao ou exclusao enviando para o appointmentsRo

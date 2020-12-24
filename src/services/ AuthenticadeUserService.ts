@@ -2,7 +2,7 @@ import { getRepository} from 'typeorm';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import User from '../models/User';
-
+import authConfig from '../config/auth' 
 
 
 interface RequestDTO{
@@ -31,9 +31,11 @@ if (!passwordMatched) {
 }
 // Usuario authenticado
 
-const token = sign({},'d98617f8918ec7169cecd4a046905fac',{
+const { secret, expiresIn } = authConfig.jwt;
+
+const token = sign({}, secret,{
   subject: user.id,
-  expiresIn: '1d'
+  expiresIn,
 })
 
 return { 
