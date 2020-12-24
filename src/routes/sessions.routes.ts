@@ -10,14 +10,16 @@ try{
 
 const authenticateUser =new AuthenticateUserService();
 
-const { user } = await authenticateUser
+const { user, token } = await authenticateUser
 .execute({
   email,
    password
   });
 
 
-  return response.json({ user });
+delete user.password;
+
+  return response.json({ user, token });
 }
 catch (err){
   return response.status(400).json({

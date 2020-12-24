@@ -1,6 +1,6 @@
 import { getRepository} from 'typeorm';
 import { compare } from 'bcryptjs';
-
+import { sign } from 'jsonwebtoken';
 import User from '../models/User';
 
 
@@ -11,6 +11,7 @@ interface RequestDTO{
 }
 interface Response {
   user: User,
+  token: string,
 }
 
 class AuthenticateUserService{
@@ -30,8 +31,14 @@ if (!passwordMatched) {
 }
 // Usuario authenticado
 
+const token = sign({},'d98617f8918ec7169cecd4a046905fac',{
+  subject: user.id,
+  expiresIn: '1d'
+})
+
 return { 
   user,
+  token
 }
   }
 }
