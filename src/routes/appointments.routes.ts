@@ -14,13 +14,15 @@ const appointmentsRouter = Router();
 
 
 
-appointmentsRouter.use(ensureAuthenticated);
 //http://localhost/3333/appointments
 // ao entrar nessa rota ela ja ira entender que se trata
 // de uma adicao ou exclusao enviando para o appointmentsRo
 
 // O doispontos e Appointment serve para idenfiticar um array de appointment.
 // salvar em memoria dentro do array
+
+
+appointmentsRouter.use(ensureAuthenticated);
 appointmentsRouter.get('/', async(request, response) => {
 const appointmentsRepository = getCustomRepository(AppointmentsRepository)
 const appointments = await appointmentsRepository.find();

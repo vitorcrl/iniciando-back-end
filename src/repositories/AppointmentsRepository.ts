@@ -7,7 +7,7 @@ import { EntityRepository, Repository } from 'typeorm';
 @EntityRepository(Appointment)// extende o repositorio e passa o parametros 
 
 class AppoinmentsRepository extends Repository<Appointment>{
-public async findByDate(date: Date): Promise<Appointment | null>{
+public async findByDate(date: Date,): Promise<Appointment | null>{
 
 const findAppointment = await this.findOne({
   where: { date }, 
