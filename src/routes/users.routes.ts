@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import CreateUserService from '../services/CreateUserService';
+import UpdateUserAvatarService from '../services/UpdateUserAvatarService'
  
 import ensureAuthenticated from '../middlewares/ensureAuthenticated'
 
@@ -39,10 +40,24 @@ usersRouter.patch('/avatar',
 ensureAuthenticated, 
 upload.single('avatar'), 
 async (request,response) =>{
+          try {      
+            
+          const updateUserAvatar = new UpdateUserAvatarService();
 
-console.log(request.file);
+         const user = await updateUserAvatar.execute({
+            user_id: request.user.id,
+            avatarFilename:request.file.filename
+          })
+          delete user.password;
 
-  return response.json({ ok:true })
+          
+          return response.json(user);
+         }catch(err){
+          return response.status(400).json({
+         err:err.message
+         });
+         
+}
 })
 // e necessario authenticar a rota para que ele saiba quem trocar e alterara  foto
 export default usersRouter;
