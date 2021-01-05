@@ -28,3 +28,14 @@ Esse token primeiramente contem o algoritmo, no caso a criptografia que o a senh
 ## ⭐Adicionando Fotos⭐
 
 Nesse passo utilizaremos o multer para transferir as fotos, inicialmente para uma pasta criada na nossa raiz, apartir disso enviaremos e utilizando o gitignore vamos nao permitir o upload das fotos para o github nem o nosso sistema.
+
+### ⭐Tecnologias Utilizadas:⭐
+
+- Express
+- Node
+- Eslint
+- Java-Script
+- TypeScript
+- Docker
+- TypeOrm
+- Postgres
